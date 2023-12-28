@@ -4,37 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo List & Stopwatch</title>
+    <!-- Add Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            background-color: #f8f9fa;
+            padding: 20px;
         }
 
-        #todo-container {
-            margin-top: 20px;
-        }
-
+        #todo-container,
         #stopwatch-container {
             margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 8px;
+            margin-right: 8px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        #stopwatch {
+            font-size: 24px;
+            color: #28a745;
+            margin-bottom: 16px;
         }
     </style>
 </head>
 <body>
 
-    <div id="todo-container">
+    <div class="container" id="todo-container">
         <h2>Todo List</h2>
-        <input type="text" id="taskInput" placeholder="Add a new task">
-        <button onclick="addTask()">Add Task</button>
+        <div class="input-group mb-3">
+            <input type="text" id="taskInput" class="form-control" placeholder="Add a new task">
+            <div class="input-group-append">
+                <button class="btn btn-primary" onclick="addTask()">Add Task</button>
+            </div>
+        </div>
         <ul id="taskList"></ul>
     </div>
 
-    <div id="stopwatch-container">
+    <div class="container" id="stopwatch-container">
         <h2>Stopwatch</h2>
         <p id="stopwatch">00:00:00</p>
-        <button onclick="startStopwatch()">Start</button>
-        <button onclick="stopStopwatch()">Stop</button>
-        <button onclick="resetStopwatch()">Reset</button>
+        <button class="btn btn-success" onclick="startStopwatch()">Start</button>
+        <button class="btn btn-danger" onclick="stopStopwatch()">Stop</button>
+        <button class="btn btn-warning" onclick="resetStopwatch()">Reset</button>
     </div>
+
+    <!-- Add Bootstrap JS and Popper.js CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
 
     <script>
         // Todo List
