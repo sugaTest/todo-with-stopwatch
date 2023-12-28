@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website with Sidebar</title>
+    <title>Weather</title>
     <!-- Add Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
-            margin: 0;
+            padding: 20px;
         }
 
         #sidebar {
@@ -56,22 +56,41 @@
     <div id="sidebar">
         <h2>Navigation</h2>
         <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="todo.html">Todo</a></li>
             <li class="nav-item"><a class="nav-link" href="stopwatch.html">Stopwatch</a></li>
             <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-            <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+            <li class="nav-item"><a class="nav-link active" href="weather.html">Weather</a></li>
         </ul>
     </div>
 
     <div id="content">
-        <h2>Welcome to Our Website!</h2>
-        <p>This is the main page content. You can navigate to other pages using the sidebar.</p>
+        <h2>Weather in Sri Lanka</h2>
+        <div id="map"></div>
     </div>
 
     <!-- Add Bootstrap JS and Popper.js CDN -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+    <!-- Add OpenLayers for the map -->
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v6.6.0/build/ol.js"></script>
+    
+    <script>
+        // Initialize the map
+        const map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM(),
+                }),
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([80.7718, 7.8731]), // Coordinates of Sri Lanka
+                zoom: 7,
+            }),
+        });
+    </script>
 </body>
 </html>
