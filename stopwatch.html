@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <!-- Add Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 0;
+            margin: 0;
+        }
+
+        #sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #343a40;
+            padding-top: 20px;
+            padding-right: 10px;
+            color: #fff;
+        }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        #content h2 {
+            color: #007bff;
+        }
+
+        #stopwatch-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        #stopwatch {
+            font-size: 36px;
+            color: #28a745;
+            margin-bottom: 16px;
+        }
+
+        #milliseconds {
+            font-size: 18px;
+            color: #6c757d;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 0 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="sidebar">
+        <h2>Navigation</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="todo.html">Todo</a></li>
+            <li class="nav-item"><a class="nav-link active" href="stopwatch.html">Stopwatch</a></li>
+            <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+            <li class="nav-item"><a class="nav-link" href="weather.html">Weather</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+        <div class="container" id="stopwatch-container">
+            <h2>Stopwatch</h2>
+            <p id="stopwatch">00:00:00</p>
+            <p id="milliseconds">000</p>
+            <button class="btn btn-success" onclick="startStopwatch()">Start</button>
+            <button class="btn btn-danger" onclick="stopStopwatch()">Stop</button>
+            <button class="btn btn-warning" onclick="resetStopwatch()">Reset</button>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        // Stopwatch
+        let stopwatchInterval;
+        let stopwatchSeconds = 0;
+        let stopwatchMilliseconds = 0;
+
+        function startStopwatch() {
+            stopwatchInterval = setInterval(updateStopwatch, 10);
+        }
+
+        function stopStopwatch() {
+            clearInterval(stopwatchInterval);
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchSeconds = 0;
+            stopwatchMilliseconds = 0;
+            updateStopwatch();
+        }
+
+        function updateStopwatch() {
+            const stopwatchDisplay = document.getElementById('stopwatch');
+            const millisecondsDisplay = document.getElementById('milliseconds');
+
+            const hours = Math.floor(stopwatchSeconds / 3600);
+            const minutes = Math.floor((stopwatchSeconds % 3600) / 60);
+            const seconds = stopwatchSeconds % 60;
+
+            stopwatchDisplay.textContent = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+            millisecondsDisplay.textContent = formatMilliseconds(stopwatchMilliseconds);
+
+            stopwatchMilliseconds += 10;
+
+            if (stopwatchMilliseconds === 1000) {
+                stopwatchSeconds++;
+                stopwatchMilliseconds = 0;
+            }
+        }
+
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+
+        function formatMilliseconds(milliseconds) {
+            return milliseconds < 10 ? `00${milliseconds}` : milliseconds < 100 ? `0${milliseconds}` : milliseconds;
+        }
+    </script>
+
+</body>
+</html>
