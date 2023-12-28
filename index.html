@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List & Stopwatch</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #todo-container {
+            margin-top: 20px;
+        }
+
+        #stopwatch-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="todo-container">
+        <h2>Todo List</h2>
+        <input type="text" id="taskInput" placeholder="Add a new task">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+
+    <div id="stopwatch-container">
+        <h2>Stopwatch</h2>
+        <p id="stopwatch">00:00:00</p>
+        <button onclick="startStopwatch()">Start</button>
+        <button onclick="stopStopwatch()">Stop</button>
+        <button onclick="resetStopwatch()">Reset</button>
+    </div>
+
+    <script>
+        // Todo List
+        function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const taskList = document.getElementById('taskList');
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== '') {
+                const listItem = document.createElement('li');
+                listItem.textContent = taskText;
+                taskList.appendChild(listItem);
+                taskInput.value = '';
+            }
+        }
+
+        // Stopwatch
+        let stopwatchInterval;
+        let stopwatchSeconds = 0;
+
+        function startStopwatch() {
+            stopwatchInterval = setInterval(updateStopwatch, 1000);
+        }
+
+        function stopStopwatch() {
+            clearInterval(stopwatchInterval);
+        }
+
+        function resetStopwatch() {
+            clearInterval(stopwatchInterval);
+            stopwatchSeconds = 0;
+            updateStopwatch();
+        }
+
+        function updateStopwatch() {
+            const stopwatchDisplay = document.getElementById('stopwatch');
+            const hours = Math.floor(stopwatchSeconds / 3600);
+            const minutes = Math.floor((stopwatchSeconds % 3600) / 60);
+            const seconds = stopwatchSeconds % 60;
+
+            stopwatchDisplay.textContent = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+
+            stopwatchSeconds++;
+        }
+
+        function formatTime(time) {
+            return time < 10 ? `0${time}` : time;
+        }
+    </script>
+
+</body>
+</html>
